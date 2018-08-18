@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-bus-config
+  namespace: knative-eventing
+data:
+  KAFKA_BROKERS: bootstrap.kafka:9092
