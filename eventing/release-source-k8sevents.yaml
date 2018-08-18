@@ -1,0 +1,21 @@
+---
+apiVersion: feeds.knative.dev/v1alpha1
+kind: EventSource
+metadata:
+  name: k8sevents
+  namespace: default
+spec:
+  image: gcr.io/knative-releases/github.com/knative/eventing/pkg/sources/k8sevents@sha256:a6c90e32dd6bd36637368505b20f011f84d6df7919b213f99e2261df4cb63617
+  parameters:
+    image: gcr.io/knative-releases/github.com/knative/eventing/pkg/sources/k8sevents/receive_adapter@sha256:b81e192f27d765cf90aea2bc2bbcb7b0baad9edeb59870021abf31dfa5588cd4
+  source: k8sevents
+  type: k8sevents
+---
+apiVersion: feeds.knative.dev/v1alpha1
+kind: EventType
+metadata:
+  name: dev.knative.k8s.event
+  namespace: default
+spec:
+  description: subscription for receiving k8s cluster events
+  eventSource: k8sevents
