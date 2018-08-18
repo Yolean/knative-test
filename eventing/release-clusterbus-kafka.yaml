@@ -1,0 +1,38 @@
+---
+apiVersion: channels.knative.dev/v1alpha1
+kind: ClusterBus
+metadata:
+  name: kafka
+spec:
+  dispatcher:
+    args:
+    - -logtostderr
+    - -stderrthreshold
+    - INFO
+    env:
+    - name: KAFKA_BROKERS
+      valueFrom:
+        configMapKeyRef:
+          key: KAFKA_BROKERS
+          name: kafka-bus-config
+    image: gcr.io/knative-releases/github.com/knative/eventing/pkg/buses/kafka/dispatcher@sha256:dc153c515dd7cc7e6a70779150dd17d8acd0743c1e6289c69747151f66214118
+    name: dispatcher
+  parameters:
+    subscription:
+    - default: Newest
+      description: The initial offset to use when subscribing, either Oldest or Newest.
+        Defaults to Newest.
+      name: initialOffset
+  provisioner:
+    args:
+    - -logtostderr
+    - -stderrthreshold
+    - INFO
+    env:
+    - name: KAFKA_BROKERS
+      valueFrom:
+        configMapKeyRef:
+          key: KAFKA_BROKERS
+          name: kafka-bus-config
+    image: gcr.io/knative-releases/github.com/knative/eventing/pkg/buses/kafka/provisioner@sha256:9147733afddf83db847fb509cc124e72fa99b4a5a8cecbcb66596013f7ecb8bf
+    name: provisioner
