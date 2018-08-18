@@ -556,7 +556,7 @@ spec:
     port: 32400
   selector:
     knative: ingressgateway
-  type: LoadBalancer
+  type: NodePort
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
