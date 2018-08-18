@@ -1997,7 +1997,7 @@ metadata:
     heritage: Tiller
     istio: ingress
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     istio: ingress
   ports:
@@ -2023,7 +2023,7 @@ metadata:
     heritage: Tiller
     istio: ingressgateway
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     istio: ingressgateway
   ports:
