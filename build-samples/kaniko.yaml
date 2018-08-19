@@ -1,0 +1,17 @@
+apiVersion: build.knative.dev/v1alpha1
+kind: Build
+metadata:
+  name: build-with-kaniko
+spec:
+  #serviceAccountName: build-auth-example
+  source:
+    git:
+      url: https://github.com/solsson/knative-build-test.git
+      revision: master
+  template:
+    name: kaniko
+    arguments:
+    - name: DOCKERFILE
+      value: /workspace/dockerfile-with-run/Dockerfile
+    - name: IMAGE
+      value: localhost:5000/knative-build-test/dockerfile-with-run:kaniko
