@@ -1,0 +1,26 @@
+apiVersion: build.knative.dev/v1alpha1
+kind: Build
+metadata:
+  name: build-with-docker
+spec:
+  #serviceAccountName: build-auth-example
+  source:
+    git:
+      url: https://github.com/solsson/knative-build-test.git
+      revision: master
+  steps:
+  - name: build
+    image: gcr.io/cloud-builders/docker@sha256:1802832c9855de661ec68e4830e84370285039f259ccddf9cbaf7d871330dbf3
+    workingdir: "/workspace/dockerfile-with-run"
+    args: ["build",
+           "--tag", "localhost:5000/knative-build-test/dockerfile-with-run",
+           "."]
+    volumeMounts:
+    - name: docker-socket
+      mountPath: /var/run/docker.sock
+  # TODO example push step, but with minikube we can use serving without push
+  volumes:
+  - name: docker-socket
+    hostPath:
+      path: /var/run/docker.sock
+      type: Socket
