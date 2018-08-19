@@ -1,0 +1,9 @@
+apiVersion: build.knative.dev/v1alpha1
+kind: Build
+metadata:
+  name: test-print-date
+spec:
+  steps:
+  - name: build
+    image: debian:stretch-slim@sha256:ea42520331a55094b90f6f6663211d4f5a62c5781673935fe17a4dfced777029
+    args: ['/bin/date']
